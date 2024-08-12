@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.rlnkoo</groupId>
-	<artifactId>ecomerce-shop</artifactId>
+	<artifactId>ecommerce-shop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ecomerce-shop</name>
-	<description>Ecomerce shop application</description>
+	<name>ecommerce-shop</name>
+	<description>Ecommerce shop application</description>
 	<url/>
 	<licenses>
 		<license/>

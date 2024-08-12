@@ -1,10 +1,10 @@
-package pl.rlnkoo.ecomerceshop;
+package pl.rlnkoo.ecommerceshop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EcomerceShopApplicationTests {
+class EcommerceShopApplicationTests {
 
 	@Test
 	void contextLoads() {

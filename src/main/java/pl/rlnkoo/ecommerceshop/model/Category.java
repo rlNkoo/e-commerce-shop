@@ -1,4 +1,4 @@
-package pl.rlnkoo.ecomerceshop.model;
+package pl.rlnkoo.ecommerceshop.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,13 +1,13 @@
-package pl.rlnkoo.ecomerceshop;
+package pl.rlnkoo.ecommerceshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EcomerceShopApplication {
+public class EcommerceShopApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EcomerceShopApplication.class, args);
+		SpringApplication.run(EcommerceShopApplication.class, args);
 	}
 
 }
