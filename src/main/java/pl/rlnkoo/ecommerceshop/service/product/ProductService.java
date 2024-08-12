@@ -3,20 +3,47 @@ package pl.rlnkoo.ecommerceshop.service.product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.rlnkoo.ecommerceshop.exceptions.ProductNotFoundException;
+import pl.rlnkoo.ecommerceshop.model.Category;
 import pl.rlnkoo.ecommerceshop.model.Product;
+import pl.rlnkoo.ecommerceshop.repository.CategoryRepository;
 import pl.rlnkoo.ecommerceshop.repository.ProductRepository;
+import pl.rlnkoo.ecommerceshop.request.AddProductRequest;
+import pl.rlnkoo.ecommerceshop.request.ProductUpdateRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
-    public Product addProduct(Product product) {
-        return null;
+    public Product addProduct(AddProductRequest request) {
+        // check if the category is found in the DB
+        // If yes, set it as the new product category
+        // If no, then save it as a new category
+        // Then set as the new product category
+        Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
+                .orElseGet(() -> {
+                    Category newCategory = new Category(request.getCategory().getName());
+                    return categoryRepository.save(newCategory);
+                });
+        request.setCategory(category);
+        return productRepository.save(createProduct(request, category));
+    }
+
+    private Product createProduct(AddProductRequest request, Category category) {
+        return new Product(
+                request.getName(),
+                request.getBrand(),
+                request.getPrice(),
+                request.getInventory(),
+                request.getDescription(),
+                category
+        );
     }
 
     @Override
@@ -30,13 +57,30 @@ public class ProductService implements IProductService {
         productRepository.findById(id)
                 .ifPresentOrElse(productRepository::delete,
                         () -> {
-                            throw new ProductNotFoundException("Product not found");});
+                            throw new ProductNotFoundException("Product not found!");});
     }
 
     @Override
-    public void updateProduct(Product product, Long productId) {
-
+    public Product updateProduct(ProductUpdateRequest request, Long productId) {
+        return productRepository.findById(productId)
+                .map(existingProduct -> updateExistingProduct(existingProduct, request))
+                .map(productRepository::save)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found!"));
+        
     }
+
+    private Product updateExistingProduct(Product existingProduct, ProductUpdateRequest request) {
+        existingProduct.setName(request.getName());
+        existingProduct.setBrand(request.getBrand());
+        existingProduct.setPrice(request.getPrice());
+        existingProduct.setInventory(request.getInventory());
+        existingProduct.setDescription(request.getDescription());
+
+        Category category = categoryRepository.findByName(request.getCategory().getName());
+        existingProduct.setCategory(category);
+        return existingProduct;
+    }
+
 
     @Override
     public List<Product> getAllProducts() {
