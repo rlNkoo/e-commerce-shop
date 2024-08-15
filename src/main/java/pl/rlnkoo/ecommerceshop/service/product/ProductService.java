@@ -3,6 +3,7 @@ package pl.rlnkoo.ecommerceshop.service.product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.rlnkoo.ecommerceshop.exceptions.ProductNotFoundException;
+import pl.rlnkoo.ecommerceshop.exceptions.ResourceNotFoundException;
 import pl.rlnkoo.ecommerceshop.model.Category;
 import pl.rlnkoo.ecommerceshop.model.Product;
 import pl.rlnkoo.ecommerceshop.repository.CategoryRepository;
@@ -49,7 +50,7 @@ public class ProductService implements IProductService {
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found!"));
     }
 
     @Override
