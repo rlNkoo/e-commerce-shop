@@ -1,5 +1,6 @@
 package pl.rlnkoo.ecommerceshop.service.product;
 
+import pl.rlnkoo.ecommerceshop.dto.ProductDto;
 import pl.rlnkoo.ecommerceshop.model.Product;
 import pl.rlnkoo.ecommerceshop.request.AddProductRequest;
 import pl.rlnkoo.ecommerceshop.request.ProductUpdateRequest;
@@ -19,4 +20,6 @@ public interface IProductService {
     List<Product> getProductsByName(String name);
     List<Product> getProductsByBrandAndName(String brand, String name);
     Long countProductsByBrandAndName(String brand, String name);
+    List<ProductDto> getConvertedProducts(List<Product> products);
+    ProductDto convertToDto(Product product);
 }
