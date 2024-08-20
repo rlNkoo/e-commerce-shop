@@ -1,6 +1,8 @@
 package pl.rlnkoo.ecommerceshop.service.cart;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import pl.rlnkoo.ecommerceshop.exceptions.ResourceNotFoundException;
 import pl.rlnkoo.ecommerceshop.model.Cart;
@@ -16,6 +18,7 @@ public class CartService implements ICartService {
 
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final ModelMapper modelMapper;
     private final AtomicLong cartIdGenerator = new AtomicLong(0);
 
     @Override
@@ -27,6 +30,7 @@ public class CartService implements ICartService {
         return cartRepository.save(cart);
     }
 
+    @Transactional
     @Override
     public void clearCart(Long id) {
         Cart cart = getCart(id);

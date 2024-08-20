@@ -64,7 +64,8 @@ public class CartItemService implements ICartItemService{
                     item.setUnitPrice(item.getProduct().getPrice());
                     item.setTotalPrice();
                 });
-        BigDecimal totalAmount = cart.getTotalAmount();
+        BigDecimal totalAmount = cart.getItems().stream().map(CartItem::getTotalPrice)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
         cart.setTotalAmount(totalAmount);
         cartRepository.save(cart);
     }
