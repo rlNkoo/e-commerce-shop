@@ -12,6 +12,7 @@ import pl.rlnkoo.ecommerceshop.service.product.IProductService;
 
 import java.math.BigDecimal;
 
+
 @Service
 @RequiredArgsConstructor
 public class CartItemService implements ICartItemService{
@@ -25,6 +26,7 @@ public class CartItemService implements ICartItemService{
     public void addItemToCart(Long cartId, Long productId, int quantity) {
         Cart cart = cartService.getCart(cartId);
         Product product = productService.getProductById(productId);
+
         CartItem cartItem = cart.getItems()
                 .stream()
                 .filter(item -> item.getProduct().getId().equals(productId))
