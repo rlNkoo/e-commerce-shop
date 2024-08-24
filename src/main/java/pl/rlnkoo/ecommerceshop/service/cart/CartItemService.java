@@ -12,7 +12,6 @@ import pl.rlnkoo.ecommerceshop.service.product.IProductService;
 
 import java.math.BigDecimal;
 
-
 @Service
 @RequiredArgsConstructor
 public class CartItemService implements ICartItemService{
