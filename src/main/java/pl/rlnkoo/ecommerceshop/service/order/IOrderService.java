@@ -1,5 +1,6 @@
 package pl.rlnkoo.ecommerceshop.service.order;
 
+import pl.rlnkoo.ecommerceshop.dto.OrderDto;
 import pl.rlnkoo.ecommerceshop.model.Order;
 
 import java.util.List;
@@ -7,7 +8,6 @@ import java.util.List;
 public interface IOrderService {
 
     Order placeOrder(Long userId);
-    Order getOrder(Long orderId);
-
-    List<Order> getUserOrders(Long userId);
+    OrderDto getOrder(Long orderId);
+    List<OrderDto> getUserOrders(Long userId);
 }

@@ -3,6 +3,7 @@ package pl.rlnkoo.ecommerceshop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.rlnkoo.ecommerceshop.dto.OrderDto;
 import pl.rlnkoo.ecommerceshop.exceptions.ResourceNotFoundException;
 import pl.rlnkoo.ecommerceshop.model.Order;
 import pl.rlnkoo.ecommerceshop.response.ApiResponse;
@@ -34,7 +35,7 @@ public class OrderController {
     @GetMapping("/{orderId}/order")
     public ResponseEntity<ApiResponse> getOrderById(@PathVariable Long orderId) {
         try {
-            Order order = orderService.getOrder(orderId);
+            OrderDto order = orderService.getOrder(orderId);
             return ResponseEntity.ok(new ApiResponse("Success", order));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND)
@@ -45,13 +46,11 @@ public class OrderController {
     @GetMapping("/{userId}/orders")
     public ResponseEntity<ApiResponse> getUserOrders(@PathVariable Long userId) {
         try {
-            List<Order> orders = orderService.getUserOrders(userId);
+            List<OrderDto> orders = orderService.getUserOrders(userId);
             return ResponseEntity.ok(new ApiResponse("Success", orders));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND)
                     .body(new ApiResponse("Error occurred.", e.getMessage()));
         }
     }
-
-
 }

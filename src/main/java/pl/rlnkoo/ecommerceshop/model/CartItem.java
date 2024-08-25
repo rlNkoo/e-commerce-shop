@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.rlnkoo.ecommerceshop.dto.ProductDto;
 
 import java.math.BigDecimal;
 

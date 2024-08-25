@@ -74,5 +74,4 @@ public class ImageController {
         }
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Delete failed", INTERNAL_SERVER_ERROR));
     }
-
 }
