@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import pl.rlnkoo.ecommerceshop.dto.ImageDto;
 import pl.rlnkoo.ecommerceshop.dto.ProductDto;
+import pl.rlnkoo.ecommerceshop.exceptions.AlreadyExistsException;
 import pl.rlnkoo.ecommerceshop.exceptions.ProductNotFoundException;
 import pl.rlnkoo.ecommerceshop.exceptions.ResourceNotFoundException;
 import pl.rlnkoo.ecommerceshop.model.Category;
@@ -30,6 +31,12 @@ public class ProductService implements IProductService {
 
     @Override
     public Product addProduct(AddProductRequest request) {
+
+        if (productExists(request.getName(), request.getBrand())) {
+            throw new AlreadyExistsException(request
+                    .getBrand() + " " + request.getName() + " already exists, you may update this product");
+        }
+
         Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
                 .orElseGet(() -> {
                     Category newCategory = new Category(request.getCategory().getName());
@@ -37,6 +44,10 @@ public class ProductService implements IProductService {
                 });
         request.setCategory(category);
         return productRepository.save(createProduct(request, category));
+    }
+
+    private boolean productExists(String name, String brand) {
+        return productRepository.existsByNameAndBrand(name, brand);
     }
 
     private Product createProduct(AddProductRequest request, Category category) {

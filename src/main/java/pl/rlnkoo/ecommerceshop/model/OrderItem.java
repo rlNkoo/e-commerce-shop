@@ -1,5 +1,6 @@
 package pl.rlnkoo.ecommerceshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
