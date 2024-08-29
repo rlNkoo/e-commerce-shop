@@ -18,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import pl.rlnkoo.ecommerceshop.security.jwt.AuthTokenFilter;
 import pl.rlnkoo.ecommerceshop.security.jwt.JwtAuthEntryPoint;
+import pl.rlnkoo.ecommerceshop.security.jwt.JwtUtils;
 import pl.rlnkoo.ecommerceshop.security.user.ShopUserDetailsService;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class ShopConfig {
 
     private final ShopUserDetailsService userDetailsService;
     private final JwtAuthEntryPoint authEntryPoint;
+    private final JwtUtils jwtUtils;
 
     private static final List<String> SECURED_URLS =
             List.of("/api/v1/carts/**", "/api/v1/cartItems/**");
@@ -46,7 +48,7 @@ public class ShopConfig {
 
     @Bean
     public AuthTokenFilter authTokenFilter() {
-        return new AuthTokenFilter();
+        return new AuthTokenFilter(jwtUtils, userDetailsService);
     }
 
     @Bean
