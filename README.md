@@ -5,7 +5,7 @@ This is a Java-based backend application for an e-commerce platform. The applica
 ## Features
 
 ### User Management
-- **Registration**: Allows users to create an account by providing necessary details.
+- **Registration**: Allows users to create an account by providing necessary details. 
 - **Login**: Authenticates users with their credentials.
 - **JWT Authorization**: Secures API endpoints using JSON Web Tokens (JWT) for authorization.
 - **Role Management**: Assigns roles to users (e.g., `USER`, `ADMIN`), determining their access level within the application.
